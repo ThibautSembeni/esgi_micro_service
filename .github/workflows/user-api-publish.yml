@@ -1,23 +1,24 @@
 name: User API Docker image publish
 
 on:
-  push:
-    # Publish `master` as Docker `latest` image.
-    branches:
-      - main
+  # push:
+  #   # Publish `master` as Docker `latest` image.
+  #   branches:
+  #     - main
 
-    # Publish `v1.2.3` tags as releases.
-    tags:
-      - v*
+  #   # Publish `v1.2.3` tags as releases.
+  #   tags:
+  #     - v*
 
-    paths:
-      - "user-api/**"
-      - ".github/workflows/user-api-publish.yml"
+  #   paths:
+  #     - "user-api/**"
+  #     - ".github/workflows/user-api-publish.yml"
 
-  # Run tests for any PRs.
-  pull_request:
-    paths:
-      - "user-api/**"
+  # # Run tests for any PRs.
+  # pull_request:
+  #   paths:
+  #     - "user-api/**"
+  workflow_dispatch:
 
 env:
   IMAGE_NAME: bank-user-api

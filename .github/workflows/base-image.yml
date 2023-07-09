@@ -1,12 +1,13 @@
 name: Base Image Docker image publish
 
 on:
-  push:
-    branches:
-      - main
+  # push:
+  #   branches:
+  #     - main
 
-    paths:
-      - "Dockerfile"
+  #   paths:
+  #     - "Dockerfile"
+  workflow_dispatch:
 
 env:
   IMAGE_NAME: nest-prisma
