@@ -13,10 +13,14 @@ Avant de commencer, assurez-vous d'avoir les éléments suivants installés sur 
 
 ### Étape 1: Démarrer Docker
 
+```bash
+docker network create grpc-bank_default
+```
+
 Exécutez la commande suivante pour démarrer les conteneurs Docker :
 
 ```shell
-docker compose up -d
+docker compose up -d mariadb mongo tracing
 ```
 
 Cela lancera les services du projet sous docker.

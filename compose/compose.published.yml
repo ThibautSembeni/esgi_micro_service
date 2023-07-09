@@ -1,0 +1,115 @@
+version: "3.8"
+
+services:
+  user-api:
+    image: thibsbn/bank-user-api
+    environment:
+      - MYSQL_URL=mysql://root:passwd@mariadb:3306/user
+      - insecure=true
+      - ROOT_CA=/certs/rootCA.pem
+      - USER_CERT=/certs/user.pem
+      - USER_KEY=/certs/user-key.pem
+      - AUTH_CERT=/certs/auth.pem
+      - AUTH_KEY=/certs/auth-key.pem
+      - PORT=4002
+      - AUTH_API_URL=auth-api:4003
+      - JAEGER_URL=http://tracing:4318/v1/traces
+      - HEALTH_PORT=3001
+    ports:
+      - 4002:4002
+    volumes:
+      - ../local/certs:/certs
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3001/health"]
+      interval: 5s
+      timeout: 10s
+      retries: 5
+
+  account-api:
+    image: thibsbn/bank-account-api
+    environment:
+      - MYSQL_URL=mysql://root:passwd@mariadb:3306/account
+      - insecure=true
+      - ROOT_CA=/certs/rootCA.pem
+      - ACCOUNT_CERT=/certs/account.pem
+      - ACCOUNT_KEY=/certs/account-key.pem
+      - USER_CERT=/certs/user.pem
+      - USER_KEY=/certs/user-key.pem
+      - AUTH_CERT=/certs/auth.pem
+      - AUTH_KEY=/certs/auth-key.pem
+      - PORT=4004
+      - AUTH_API_URL=auth-api:4003
+      - USER_API_URL=user-api:4002
+      - JAEGER_URL=http://tracing:4318/v1/traces
+      - JWT_SECRET=super-secret
+      - HEALTH_PORT=3005
+    ports:
+      - 4004:4004
+    volumes:
+      - ../local/certs:/certs
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3005/health"]
+      interval: 5s
+      timeout: 10s
+      retries: 5
+
+  transaction-api:
+    image: thibsbn/bank-transaction-api
+    environment:
+      - MYSQL_URL=mysql://root:passwd@mariadb:3306/transaction
+      - insecure=true
+      - ROOT_CA=/certs/rootCA.pem
+      - TRANSACTION_CERT=/certs/transaction.pem
+      - TRANSACTION_KEY=/certs/transaction-key.pem
+      - USER_CERT=/certs/user.pem
+      - USER_KEY=/certs/user-key.pem
+      - AUTH_CERT=/certs/auth.pem
+      - AUTH_KEY=/certs/auth-key.pem
+      - ACCOUNT_CERT=/certs/account.pem
+      - ACCOUNT_KEY=/certs/account-key.pem
+      - PORT=4005
+      - AUTH_API_URL=auth-api:4003
+      - USER_API_URL=user-api:4002
+      - ACCOUNT_API_URL=account-api:4004
+      - JAEGER_URL=http://tracing:4318/v1/traces
+      - JWT_SECRET=super-secret
+      - HEALTH_PORT=3003
+    ports:
+      - 4005:4005
+    volumes:
+      - ../local/certs:/certs
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3003/health"]
+      interval: 5s
+      timeout: 10s
+      retries: 5
+
+  auth-api:
+    image: thibsbn/bank-auth-api
+    environment:
+      - MYSQL_URL=mysql://root:passwd@mariadb:3306/auth
+      - insecure=true
+      - ROOT_CA=/certs/rootCA.pem
+      - AUTH_CERT=/certs/auth.pem
+      - AUTH_KEY=/certs/auth-key.pem
+      - USER_CERT=/certs/user.pem
+      - USER_KEY=/certs/user-key.pem
+      - PORT=4003
+      - USER_API_URL=user-api:4002
+      - JWT_SECRET=super-secret
+      - JAEGER_URL=http://tracing:4318/v1/traces
+      - HEALTH_PORT=3002
+    ports:
+      - 4003:4003
+    volumes:
+      - ../local/certs:/certs
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3002/health"]
+      interval: 5s
+      timeout: 10s
+      retries: 5
+
+networks:
+  default:
+    external: true
+    name: grpc-bank_default

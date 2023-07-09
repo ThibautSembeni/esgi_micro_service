@@ -1,23 +1,23 @@
 name: Account API Docker image publish
 
 on:
-  # push:
-  #   # Publish `master` as Docker `latest` image.
-  #   branches:
-  #     - main
+  push:
+    # Publish `master` as Docker `latest` image.
+    branches:
+      - main
 
-  #   # Publish `v1.2.3` tags as releases.
-  #   tags:
-  #     - v*
+    # Publish `v1.2.3` tags as releases.
+    tags:
+      - v*
 
-  #   paths:
-  #     - "account-api/**"
-  #     - ".github/workflows/account-api-publish.yml"
+    paths:
+      - "account-api/**"
+      - ".github/workflows/account-api-publish.yml"
 
-  # # Run tests for any PRs.
-  # pull_request:
-  #   paths:
-  #     - "account-api/**"
+  # Run tests for any PRs.
+  pull_request:
+    paths:
+      - "account-api/**"
   workflow_dispatch:
 
 env:

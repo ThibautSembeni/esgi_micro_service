@@ -54,8 +54,8 @@ export const userGrpcOptions = (cs: ConfigService): ClientProviderOptions => ({
     credentials: !cs.get<boolean>('insecure')
       ? ChannelCredentials.createSsl(
           readFileSync(cs.get('ROOT_CA')),
-          readFileSync(cs.get('AUTH_KEY')),
-          readFileSync(cs.get('AUTH_CERT')),
+          readFileSync(cs.get('USER_KEY')),
+          readFileSync(cs.get('USER_CERT')),
         )
       : ChannelCredentials.createInsecure(),
   },
