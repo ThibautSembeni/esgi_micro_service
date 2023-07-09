@@ -2,9 +2,9 @@ FROM thibsbn/nest-prisma
 
 WORKDIR /app
 
-COPY ["package.json", "pnpm-lock.yaml",  "./"]
+COPY ["package.json",  "./"]
 
-RUN pnpm install --prod
+RUN npm install --omit=dev
 
 COPY prisma ./prisma/
 
@@ -18,4 +18,4 @@ ENV NODE_ENV=production
 
 COPY src/proto dist/proto
 
-CMD pnpm start:prod
+CMD npm run start:prod
