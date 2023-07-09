@@ -21,8 +21,8 @@ export default (cs: ConfigService) =>
       credentials: !cs.get<boolean>('insecure')
         ? ServerCredentials.createSsl(null, [
             {
-              private_key: readFileSync(cs.get('USER_KEY')),
-              cert_chain: readFileSync(cs.get('USER_CERT')),
+              private_key: readFileSync(cs.get('ACCOUNT_KEY')),
+              cert_chain: readFileSync(cs.get('ACCOUNT_CERT')),
             },
           ])
         : ServerCredentials.createInsecure(),
@@ -85,8 +85,8 @@ export const authGrpcOptions = (cs: ConfigService): ClientProviderOptions => {
       credentials: !cs.get<boolean>('insecure')
         ? ChannelCredentials.createSsl(
             readFileSync(cs.get('ROOT_CA')),
-            readFileSync(cs.get('USER_KEY')),
-            readFileSync(cs.get('USER_CERT')),
+            readFileSync(cs.get('AUTH_KEY')),
+            readFileSync(cs.get('AUTH_CERT')),
           )
         : ChannelCredentials.createInsecure(),
     },

@@ -1,23 +1,23 @@
 name: Transaction API Docker image publish
 
 on:
-  # push:
-  #   # Publish `master` as Docker `latest` image.
-  #   branches:
-  #     - main
+  push:
+    # Publish `master` as Docker `latest` image.
+    branches:
+      - main
 
-  #   # Publish `v1.2.3` tags as releases.
-  #   tags:
-  #     - v*
+    # Publish `v1.2.3` tags as releases.
+    tags:
+      - v*
 
-  #   paths:
-  #     - "transaction-api/**"
-  #     - ".github/workflows/transaction-api-publish.yml"
+    paths:
+      - "transaction-api/**"
+      - ".github/workflows/transaction-api-publish.yml"
 
-  # # Run tests for any PRs.
-  # pull_request:
-  #   paths:
-  #     - "transaction-api/**"
+  # Run tests for any PRs.
+  pull_request:
+    paths:
+      - "transaction-api/**"
   workflow_dispatch:
 
 env:
