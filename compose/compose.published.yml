@@ -5,7 +5,7 @@ services:
     image: thibsbn/bank-user-api
     environment:
       - MYSQL_URL=mysql://root:passwd@mariadb:3306/user
-      - insecure=true
+      - insecure=false
       - ROOT_CA=/certs/rootCA.pem
       - USER_CERT=/certs/user.pem
       - USER_KEY=/certs/user-key.pem
@@ -29,7 +29,7 @@ services:
     image: thibsbn/bank-account-api
     environment:
       - MYSQL_URL=mysql://root:passwd@mariadb:3306/account
-      - insecure=true
+      - insecure=false
       - ROOT_CA=/certs/rootCA.pem
       - ACCOUNT_CERT=/certs/account.pem
       - ACCOUNT_KEY=/certs/account-key.pem
@@ -57,7 +57,7 @@ services:
     image: thibsbn/bank-transaction-api
     environment:
       - MYSQL_URL=mysql://root:passwd@mariadb:3306/transaction
-      - insecure=true
+      - insecure=false
       - ROOT_CA=/certs/rootCA.pem
       - TRANSACTION_CERT=/certs/transaction.pem
       - TRANSACTION_KEY=/certs/transaction-key.pem
@@ -88,7 +88,7 @@ services:
     image: thibsbn/bank-auth-api
     environment:
       - MYSQL_URL=mysql://root:passwd@mariadb:3306/auth
-      - insecure=true
+      - insecure=false
       - ROOT_CA=/certs/rootCA.pem
       - AUTH_CERT=/certs/auth.pem
       - AUTH_KEY=/certs/auth-key.pem
