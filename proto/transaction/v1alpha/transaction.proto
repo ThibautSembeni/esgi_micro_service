@@ -1,0 +1,66 @@
+syntax = "proto3";
+
+package transaction.v1alpha;
+
+import "google/protobuf/timestamp.proto";
+
+service TransactionService {
+  rpc GetTransaction(GetTransactionRequest) returns (GetTransactionResponse) {}
+  rpc GetTransactionByAccount(GetTransactionRequest) returns (GetAllTransactionResponse) {}
+  rpc GetTransactionByUser(GetTransactionRequest) returns (GetAllTransactionResponse) {}
+  rpc GetAllTransaction (GetAllTransactionRequest) returns (GetAllTransactionResponse);
+  rpc CreateTransaction (CreateTransactionRequest) returns (CreateTransactionResponse);
+}
+
+enum TransactionType {
+  DEBIT = 0;
+  CREDIT = 1;
+}
+
+message Transaction {
+    int32 id = 1;
+    TransactionType type = 2;
+    float amount = 3;
+    float amount_before = 4;
+    float amount_current = 5;
+    int32 user_id = 6;
+    int32 account_id = 7;
+    
+    google.protobuf.Timestamp updated_at = 8;
+    google.protobuf.Timestamp created_at = 9;
+  }
+
+message GetTransactionRequest {
+    int32 id = 1;
+}
+
+message GetTransactionResponse {
+  Transaction transaction = 1;
+}
+
+message GetTransactionAccountRequest {
+    int32 account_id = 1;
+}
+
+message GetTransactionByAccountResponse {
+  Transaction transaction = 1;
+}
+
+message GetAllTransactionRequest {
+
+}
+
+message GetAllTransactionResponse {
+  repeated Transaction transaction = 1;
+}
+
+message CreateTransactionRequest {
+  string amount = 1;
+  int32 user_id = 2;
+  int32 account_id = 3;
+  TransactionType type = 4;
+}
+
+message CreateTransactionResponse {
+  Transaction transaction = 1;
+}

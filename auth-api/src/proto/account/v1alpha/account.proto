@@ -1,0 +1,68 @@
+syntax = "proto3";
+
+package account.v1alpha;
+
+import "google/protobuf/timestamp.proto";
+
+service AccountService {
+  rpc GetAccount(GetAccountRequest) returns (GetAccountResponse) {}
+  rpc GetAllAccount (GetAllAccountRequest) returns (GetAllAccountResponse);
+  rpc CreateAccount (CreateAccountRequest) returns (CreateAccountResponse);
+  rpc UpdateAccount (UpdateAccountRequest) returns (UpdateAccountResponse);
+  rpc DeleteAccount (DeleteAccountRequest) returns (DeleteAccountResponse);
+}
+
+message Account {
+    int32 id = 1;
+    string name = 2;
+    float amount = 3;
+    int32 user_id = 4;
+    
+    google.protobuf.Timestamp created_at = 5;
+    google.protobuf.Timestamp updated_at = 6;
+}
+
+message GetAccountRequest {
+    string name = 1;
+    int32 id = 2;
+}
+
+message GetAccountResponse {
+  Account account = 1;
+}
+
+message GetAllAccountRequest {
+
+}
+
+message GetAllAccountResponse {
+  repeated Account account = 1;
+}
+
+message CreateAccountRequest {
+  string name = 1;
+  int32 user_id = 2;
+}
+
+message CreateAccountResponse {
+  Account account = 1;
+}
+
+message UpdateAccountRequest {
+    int32 id = 1;
+    string name = 2;
+    int32 amount = 3;
+}
+
+message UpdateAccountResponse {
+  Account account = 1;
+}
+
+message DeleteAccountRequest {
+  string name = 1;
+  int32 id = 2;
+}
+
+message DeleteAccountResponse {
+  string message = 1;
+}
