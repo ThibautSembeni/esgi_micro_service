@@ -1,23 +1,24 @@
 name: Auth API Docker image publish
 
 on:
-  push:
-    # Publish `master` as Docker `latest` image.
-    branches:
-      - main
+  # push:
+  #   # Publish `master` as Docker `latest` image.
+  #   branches:
+  #     - main
 
-    # Publish `v1.2.3` tags as releases.
-    tags:
-      - v*
+  #   # Publish `v1.2.3` tags as releases.
+  #   tags:
+  #     - v*
 
-    paths:
-      - "auth-api/**"
-      - ".github/workflows/auth-api-publish.yml"
+  #   paths:
+  #     - "auth-api/**"
+  #     - ".github/workflows/auth-api-publish.yml"
 
-  # Run tests for any PRs.
-  pull_request:
-    paths:
-      - "auth-api/**"
+  # # Run tests for any PRs.
+  # pull_request:
+  #   paths:
+  #     - "auth-api/**"
+  workflow_dispatch:
 
 env:
   IMAGE_NAME: bank-auth-api
