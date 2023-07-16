@@ -164,6 +164,36 @@ Il est crucial d'exécuter le script `export.sh` après chaque modification des 
 
 Veillez à respecter cette procédure pour éviter tout problème de compatibilité ou de fonctionnement incorrect des services.
 
+## Automatisation avec Docker et GitHub Actions
+
+Ce projet est entièrement automatisé avec Docker et GitHub Actions pour simplifier le processus de déploiement et de gestion des micro-services.
+
+### Docker et Images personnalisées
+
+Nous utilisons Docker pour la conteneurisation de nos micro-services. Chaque micro-service est encapsulé dans un conteneur Docker, ce qui facilite le déploiement et la gestion de l'infrastructure.
+
+De plus, nous avons créé des images Docker personnalisées pour nos micro-services. Ces images sont générées à l'aide de GitHub Actions pour garantir la cohérence et la reproductibilité du processus de construction.
+
+### GitHub Actions
+
+GitHub Actions est utilisé pour automatiser le processus de génération des images Docker personnalisées et pour le déploiement des micro-services. Les workflows GitHub Actions sont configurés pour surveiller les modifications du code source et déclencher automatiquement la construction et le déploiement des images Docker à chaque push sur la branche principale.
+
+### Déploiement avec Docker Compose
+
+Pour démarrer l'ensemble du projet avec toutes les images Docker, il vous suffit d'utiliser la commande suivante :
+
+```shell
+docker-compose up -d
+```
+
+## Modification des Protobufs via Buf Schema Registry
+
+Nous utilisons Buf Schema Registry pour gérer les fichiers Protobuf de ce projet. Buf est un gestionnaire de fichiers protobuf qui facilite la gestion des versions, la validation et la manipulation des fichiers .proto.
+
+### Accès à Buf Schema Registry
+
+Vous pouvez accéder au registre des fichiers Protobuf via le lien suivant : [https://buf.build/thibaut/bankapi](https://buf.build/thibaut/bankapi).
+
 ## Observabilité avec OpenTelemetry et Jaeger
 
 Ce projet utilise OpenTelemetry pour l'observabilité des micro-services. Jaeger est utilisé comme backend de trace pour la collecte et la visualisation des données de traces.
